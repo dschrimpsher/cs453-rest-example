@@ -23,6 +23,9 @@ async function dbConnect() {
   console.log(result);
 }
 
+app.use(express.json())
+
+
 // Define a route handler for the root path
 app.get('/customers', (req, res) => {
     db.collection('customers').find().toArray().then((docs) => {
@@ -34,7 +37,8 @@ app.get('/customers', (req, res) => {
 });
 
 app.post('/customers', (req, res) => {
-  const body = req.body;
+  const body = req.body
+  console.log(body);
   db.collection('customers').insertOne(body).then((docs) => {
     res.status(201).send({success: true});
   }).catch(err => {

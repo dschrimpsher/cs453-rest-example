@@ -1,0 +1,13 @@
+GET http://localhost:3000/customers
+
+###
+POST http://localhost:3000/customers
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Bob Frong",
+  "age": 29,
+  "city": "Boston",
+  "country": "USA"
+}
