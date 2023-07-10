@@ -10,12 +10,21 @@ services:
     depends_on:
       - mongo
 
+  soap-app:
+    container_name: soapapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    entrypoint: node soap-server.js
+
   mongo:
     image: mongo:latest
     ports:
       - '27017:27017'
     volumes:
-      - mongo-data:/data/db
+      - ~/mongo-data:/data/db
 
 volumes:
   mongo-data:

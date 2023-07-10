@@ -1,0 +1,37 @@
+<definitions name = "MyService"
+             targetNamespace = "http://www.examples.com/wsdl/MyService.wsdl"
+             xmlns = "http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap = "http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns = "http://www.examples.com/wsdl/MyService.wsdl"
+             xmlns:xsd = "http://www.w3.org/2001/XMLSchema">
+    <message name="SSNLookupRequest">
+        <part name="name" type="xsd:string"/>
+    </message>
+    <message name="SSNLookupResponse">
+        <part name="ssn" type="xsd:string"/>
+    </message>
+    <portType name="MyPort">
+        <operation name="SSNLookup">
+            <input message="tns:SSNLookupRequest"/>
+            <output message="tns:SSNLookupResponse"/>
+        </operation>
+    </portType>
+    <binding name = "SSNLookup_Binding" type="tns:MyPort">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="SSNLookup">
+            <soap:operation soapAction="SSNLookup"/>
+            <input>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:examples:MyService" use="encoded"/>
+            </input>
+            <output>
+                <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:examples:MyService" use="encoded"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="MyService">
+        <documentation>WSDL File for MyService</documentation>
+        <port binding="tns:SSNLookup_Binding" name="MyPort">
+            <soap:address location = "http://soapapp:8000/SSNLookup/" />
+        </port>
+    </service>
+</definitions>
